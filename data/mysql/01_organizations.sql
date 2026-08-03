@@ -12,3 +12,6 @@ CREATE TABLE `organizations`
 ALTER TABLE `organizations`
     ADD PRIMARY KEY (`organization_id`),
     ADD UNIQUE KEY `organizations_slug_unique` (`slug`);
+
+ALTER TABLE `organizations`
+    ADD COLUMN `suspended_at` datetime DEFAULT NULL;
