@@ -1,0 +1,52 @@
+services:
+  mysql:
+    image: mysql
+    container_name: 'mysql-trackspire'
+    hostname: mysql-trackspire
+    environment:
+      MYSQL_DATABASE: 'flowtix'
+      MYSQL_USER: 'testing'
+      MYSQL_PASSWORD: '1234'
+      MYSQL_ROOT_PASSWORD: '1234'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - flowtixData:/var/lib/mysql:rw
+      - ./data/mysql:/docker-entrypoint-initdb.d/:ro
+    networks:
+      - trackspire-shared
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: 'pma-trackspire'
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql-trackspire
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - '8081:80'
+    networks:
+      - trackspire-shared
+
+  redis:
+    image: redis:7.4.1
+    container_name: 'redis-trackspire'
+    ports:
+      - '6379:6379'
+    command: ['redis-server', '--requirepass', '1234']
+    volumes:
+      - redis_data:/data
+    networks:
+      - trackspire-shared
+
+volumes:
+  flowtixData:
+  redis_data:
+
+networks:
+  trackspire-shared:
+    external: true
