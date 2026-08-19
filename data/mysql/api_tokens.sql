@@ -3,7 +3,7 @@ CREATE TABLE `api_tokens`
     `token_id`     char(8)      NOT NULL,
     `user_id`      char(8)      NOT NULL,
     `name`         varchar(100) NOT NULL,
-    `token_prefix` char(8)      NOT NULL,
+    `token_prefix` varchar(14)  NOT NULL,
     `token_hash`   char(64)     NOT NULL,
     `last_used_at` datetime              DEFAULT NULL,
     `expires_at`   datetime              DEFAULT NULL,
