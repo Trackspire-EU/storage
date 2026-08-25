@@ -22,3 +22,7 @@ CREATE TABLE `bot_events`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
+
+ALTER TABLE `bot_events`
+    ADD CONSTRAINT `fk_bot_events_site`
+        FOREIGN KEY (`site_id`) REFERENCES `sites` (`site_id`) ON DELETE CASCADE;

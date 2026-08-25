@@ -34,7 +34,7 @@ CREATE TABLE `events`
     `inp`                float                                                                     DEFAULT NULL,
     `fcp`                float                                                                     DEFAULT NULL,
     `ttfb`               int                                                                     DEFAULT NULL,
-    `ip`                 varchar(45)                                                                DEFAULT NULL,
+    `ip`                 varchar(64)                                                                DEFAULT NULL,
     `timezone`           varchar(64)                                                       DEFAULT NULL
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -52,3 +52,7 @@ ALTER TABLE `events`
     ADD INDEX `idx_events_user` (`user_id`),
     ADD INDEX `idx_events_type` (`type`),
     ADD INDEX `idx_events_country` (`country`);
+
+ALTER TABLE `events`
+    ADD CONSTRAINT `fk_events_site`
+        FOREIGN KEY (`site_id`) REFERENCES `sites` (`site_id`) ON DELETE CASCADE;

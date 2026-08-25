@@ -12,3 +12,7 @@ ALTER TABLE `tracking_user_alias`
 
 ALTER TABLE `tracking_user_alias`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `tracking_user_alias`
+  ADD CONSTRAINT `fk_tracking_user_alias_site`
+      FOREIGN KEY (`site_id`) REFERENCES `sites` (`site_id`) ON DELETE CASCADE;
