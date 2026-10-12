@@ -51,4 +51,8 @@ ALTER TABLE `events`
     ADD INDEX `idx_events_session` (`session_id`),
     ADD INDEX `idx_events_user` (`user_id`),
     ADD INDEX `idx_events_type` (`type`),
-    ADD INDEX `idx_events_country` (`country`);
+    ADD INDEX `idx_events_country` (`country`),
+    -- Dashboard queries always filter by site first, then by type and period or by one session/visitor.
+    ADD INDEX `idx_events_site_type_occurred` (`site_id`, `type`, `occurred_on`),
+    ADD INDEX `idx_events_site_session` (`site_id`, `session_id`),
+    ADD INDEX `idx_events_site_user` (`site_id`, `user_id`);

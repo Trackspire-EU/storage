@@ -14,3 +14,7 @@ ALTER TABLE `active_sessions`
 
 ALTER TABLE `active_sessions`
     ADD CONSTRAINT `fk_active_sessions_site` FOREIGN KEY (`site_id`) REFERENCES `sites` (`site_id`) ON DELETE CASCADE;
+
+-- The session cleanup job deletes by last activity only.
+ALTER TABLE `active_sessions`
+    ADD INDEX `idx_active_sessions_last_activity` (`last_activity`);
