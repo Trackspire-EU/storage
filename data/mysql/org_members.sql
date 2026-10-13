@@ -1,9 +1,11 @@
 CREATE TABLE `org_members`
 (
-    `id`              int         NOT NULL,
-    `organization_id` char(8)     NOT NULL,
-    `user_id`         char(8)     NOT NULL,
-    `role`            varchar(20) NOT NULL
+    `id`                         int         NOT NULL,
+    `organization_id`            char(8)     NOT NULL,
+    `user_id`                    char(8)     NOT NULL,
+    `role`                       varchar(20) NOT NULL,
+    -- 1 limits a member to the sites of their teams (see teams.sql); owners and admins always see every site
+    `has_restricted_site_access` tinyint(1)  NOT NULL DEFAULT '0'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
