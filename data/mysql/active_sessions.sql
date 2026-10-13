@@ -18,3 +18,9 @@ ALTER TABLE `active_sessions`
 -- The session cleanup job deletes by last activity only.
 ALTER TABLE `active_sessions`
     ADD INDEX `idx_active_sessions_last_activity` (`last_activity`);
+
+-- Where the visit came from, set by its first event and by every later one that arrives from another
+-- site or a campaign. Events navigating within the site inherit it instead of naming the previous page.
+ALTER TABLE `active_sessions`
+    ADD COLUMN `channel` varchar(50) DEFAULT NULL,
+    ADD COLUMN `referrer` varchar(2048) DEFAULT NULL;
