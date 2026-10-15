@@ -5,6 +5,8 @@ CREATE TABLE `api_tokens`
     `name`         varchar(100) NOT NULL,
     `token_prefix` varchar(14)  NOT NULL,
     `token_hash`   char(64)     NOT NULL,
+    -- 'read' (GET only) or 'write'
+    `scope`        varchar(10)  NOT NULL DEFAULT 'read',
     `last_used_at` datetime              DEFAULT NULL,
     `expires_at`   datetime              DEFAULT NULL,
     `revoked_at`   datetime              DEFAULT NULL,
