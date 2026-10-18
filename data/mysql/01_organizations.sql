@@ -15,3 +15,7 @@ ALTER TABLE `organizations`
 
 ALTER TABLE `organizations`
     ADD COLUMN `suspended_at` datetime DEFAULT NULL;
+
+-- Object key of the logo in the object storage (MinIO), NULL while the organization has none
+ALTER TABLE `organizations`
+    ADD COLUMN `logo_key` varchar(255) DEFAULT NULL;

@@ -43,9 +43,44 @@ services:
     networks:
       - trackspire-shared
 
+  # MinIO stopped publishing images on Docker Hub and Quay in October 2025; Chainguard keeps building them.
+  minio:
+    image: cgr.dev/chainguard/minio
+    container_name: 'minio-trackspire'
+    hostname: minio-trackspire
+    command: ['server', '/data', '--console-address', ':9001']
+    environment:
+      MINIO_ROOT_USER: 'trackspire'
+      MINIO_ROOT_PASSWORD: 'trackspire1234'
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - minio_data:/data
+    networks:
+      - trackspire-shared
+
+  # Creates the bucket once MinIO is up. Logos are linked from the dashboard and from emails, so their prefix
+  # is readable without credentials; everything else in the bucket stays private.
+  minio-init:
+    # The -dev variant ships a shell, which the script below needs
+    image: cgr.dev/chainguard/minio-client:latest-dev
+    container_name: 'minio-init-trackspire'
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      until mc alias set local http://minio-trackspire:9000 trackspire trackspire1234; do sleep 1; done;
+      mc mb --ignore-existing local/trackspire;
+      mc anonymous set download local/trackspire/organization-logos;
+      "
+    networks:
+      - trackspire-shared
+
 volumes:
   flowtixData:
   redis_data:
+  minio_data:
 
 networks:
   trackspire-shared:
