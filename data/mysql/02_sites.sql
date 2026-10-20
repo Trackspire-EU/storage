@@ -24,6 +24,7 @@ CREATE TABLE `sites`
     `track_button_clicks`     tinyint(1)   NOT NULL DEFAULT '0',
     `track_copy`              tinyint(1)   NOT NULL DEFAULT '0',
     `track_form_interactions` tinyint(1)   NOT NULL DEFAULT '0',
+    `track_heatmap`           tinyint(1)   NOT NULL DEFAULT '0',
     `salt_user_ids`           tinyint(1)   NOT NULL DEFAULT '0'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
